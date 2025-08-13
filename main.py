@@ -1,16 +1,16 @@
 import streamlit as st
 
 def main():
-    # 페이지 기본 설정
+    # 페이지 기본 설정 (가운데 정렬)
     st.set_page_config(layout="centered")
 
-    # 파스텔톤 테마 CSS 주입 (새롭게 추가된 부분)
+    # 파스텔톤 핑크 테마 CSS 주입
     st.markdown(
         """
         <style>
         /* --- 전체 페이지 배경 및 기본 텍스트 색상 설정 --- */
         .stApp {
-            background-color: #FFF0E5; /* AntiqueWhite - 아주 연한 따뜻한 베이지 */
+            background-color: #FFECF0; /* 아주 연한 파스텔 핑크 (#FFECF0 또는 #FCE4EC) */
             color: #555555; /* 부드러운 다크 그레이 텍스트 */
             font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; /* 한글 폰트 적용 */
         }
@@ -44,7 +44,7 @@ def main():
             border-radius: 8px;
             color: #555555;
         }
-        /* 드롭다운 메뉴 아이템 호버 시 색상 */
+        /* 드롭다운 메뉴 아이템 호버 시 색상 (Streamlit 내부 클래스명) */
         .st-bb, .st-bc, .st-bd, .st-be, .st-bf, .st-bg, .st-bh, .st-bi, .st-bj, .st-bk, .st-bl, .st-bm, .st-bn, .st-bo, .st-bp, .st-bq, .st-br, .st-bs, .st-bw, .st-bx, .st-by, .st-bz, .st-ca, .st-cb, .st-cc, .st-cd, .st-ce, .st-cf, .st-cg, .st-ch, .st-ci, .st-cj, .st-ck, .st-cl, .st-cm, .st-cn, .st-co, .st-cp, .st-cq, .st-cr, .st-cs, .st-ct, .st-cu, .st-cv, .st-cw, .st-cx, .st-cy, .st-cz, .st-da, .st-db, .st-dc, .st-dd, .st-de, .st-df, .st-dg, .st-dh, .st-di, .st-dj, .st-dk, .st-dl, .st-dm, .st-dn, .st-do, .st-dp, .st-dq, .st-dr, .st-ds, .st-dt, .st-du, .st-dv, .st-dw, .st-dx, .st-dy, .st-dz, .st-ea, .st-eb, .st-ec, .st-ed, .st-ee, .st-ef, .st-eg, .st-eh, .st-ei, .st-ej, .st-ek, .st-el, .st-em, .st-en, .st-eo, .st-ep, .st-eq, .st-er, .st-es, .st-et, .st-eu, .st-ev, .st-ew, .st-ex, .st-ey, .st-ez {
             background-color: #FFEFD5 !important; /* PapayaWhip - 호버 시 배경색 */
         }
@@ -115,7 +115,10 @@ def main():
         "ENTJ": ["김희선", "지창욱"]
     }
 
-    # MBTI별 동물 이미지 데이터베이스 (이전과 동일)
+    # MBTI별 동물 이미지 데이터베이스
+    # 이미지 출처: 위키미디어 공용 (Wikimedia Commons) 예시 URL
+    # 실제 사용 시 저작권 및 사용 조건을 확인하시고, 직접 소유하거나
+    # 상업적 이용 가능한 이미지를 사용하시는 것을 권장합니다.
     animal_images = {
         "ISTJ": {"name": "호랑이", "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Siberian_Tiger_in_Kao_Laem_ya_National_Park_%2801%29.jpg/800px-Siberian_Tiger_in_Kao_Laem_ya_National_Park_%2801%29.jpg"},
         "ISFJ": {"name": "사슴", "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Red_deer_stag.jpg/800px-Red_deer_stag.jpg"},
