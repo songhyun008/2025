@@ -1,65 +1,176 @@
-import streamlit as st
-from PIL import Image # 이미지 처리를 위해 Pillow 라이브러리가 필요합니다.
+iimport streamlit as st
 
-# --- 1. Streamlit 앱 설정 및 제목 ---
-st.set_page_config(page_title="스마트 재활용 가이드", layout="centered")
-st.title("🗑️ 스마트 재활용 가이드 앱")
-st.write("쓰레기 사진을 업로드하거나 종류를 입력하시면, 올바른 재활용 방법을 알려드립니다.")
-
-# --- 2. 재활용 정보 데이터베이스 (간단화된 예시) ---
-# 이 부분은 추후 더 많은 품목과 상세한 정보를 추가하거나,
-# 외부 데이터베이스 또는 API와 연동하여 확장할 수 있습니다.
-# 지금은 사용자가 직접 입력할 수 있는 키워드 중심으로 구성했습니다.
-recycling_rules = {
-    "페트병": "내용물을 비우고 라벨을 제거한 후, 깨끗하게 헹궈 압착하여 투명 페트병 수거함에 넣어주세요. 뚜껑은 종류에 따라 분리 배출하거나 일반 쓰레기로 버립니다.",
-    "종이류": "물기에 젖지 않도록 하고, 이물질(비닐 코팅, 테이프 등)은 제거 후 펴서 묶어서 배출합니다. 신문지, 책자, 종이 상자 등이 해당됩니다.",
-    "플라스틱류": "내용물을 비우고 깨끗하게 헹군 후, 압착하여 플라스틱 수거함에 넣어주세요. 음식물 오염이 심한 용기(예: 배달용기)는 일반 쓰레기로 버립니다.",
-    "캔류": "내용물을 비우고 헹군 후, 압착하여 캔류 수거함에 넣어주세요. 부탄가스 용기나 살충제 용기는 구멍을 뚫어 완전히 비운 후 배출합니다.",
-    "유리병류": "내용물을 비우고 헹군 후, 상표 라벨은 제거하지 않아도 되며, 색깔별로 분리 배출합니다. 깨진 유리는 신문지에 싸서 일반 쓰레기로 버립니다.",
-    "비닐류": "내용물을 비우고 깨끗하게 헹궈 봉투에 담아 비닐류 수거함에 넣어주세요. 과자봉지, 라면봉지 등이 포함됩니다.",
-    "음식물쓰레기": "물기를 제거하고 전용 수거 용기나 봉투에 넣어 배출합니다. 일반 쓰레기와 혼합되지 않도록 주의해주세요.",
-    "일반쓰레기": "재활용이 불가능하거나 다른 분류에 해당하지 않는 쓰레기는 종량제 봉투에 넣어 배출합니다.",
-    "고철": "녹슬지 않은 고철은 재활용 가능합니다. 가능한 경우 압축하여 배출하세요.",
-    "의류": "의류수거함에 넣거나 지자체 지정 장소에 배출합니다. 이불, 베개, 신발 등은 의류수거함에 넣지 않습니다.",
-    "건전지": "가까운 주민센터 또는 아파트 내 폐건전지 수거함에 넣어주세요. 일반 쓰레기로 버리면 안 됩니다."
-}
-
-def get_recycling_info(item_type):
+def get_naeshin_university_recommendation(gpa_grade):
     """
-    주어진 품목에 대한 재활용 정보를 반환하는 함수입니다.
-    데이터베이스에 없는 경우 기본 메시지를 반환합니다.
+    내신 등급(수시)에 따른 대학 추천 리스트를 반환합니다.
+    (매우 단순화된 예시이며, 실제 입시는 다양한 변수를 고려해야 합니다.)
     """
-    return recycling_rules.get(item_type, "죄송합니다. 해당 품목에 대한 재활용 정보를 찾을 수 없습니다. 다시 정확하게 입력해주시거나, 해당 품목이 일반 쓰레기로 분류될 수 있습니다.")
+    if 1.0 <= gpa_grade <= 1.5:
+        return {
+            "tier": "최상위권 (수시 교과/종합)",
+            "universities": ["서울대학교", "연세대학교", "고려대학교"],
+            "note": "매우 우수한 성적입니다. 각 대학의 학과별 특성, 수능 최저 기준, 서류 및 면접을 면밀히 살펴보세요."
+        }
+    elif 1.5 < gpa_grade <= 2.5:
+        return {
+            "tier": "상위권 (수시 교과/종합)",
+            "universities": ["서강대학교", "성균관대학교", "한양대학교", "이화여자대학교", "중앙대학교", "경희대학교", "한국외국어대학교", "서울시립대학교"],
+            "note": "우수한 성적입니다. 학생부 내용, 자기소개서, 면접 준비 등 종합 전형 요소를 고려하거나, 교과 전형의 수능 최저 충족 여부를 확인해 보세요."
+        }
+    elif 2.5 < gpa_grade <= 3.5:
+        return {
+            "tier": "중상위권 (수시 교과/종합)",
+            "universities": ["건국대학교", "동국대학교", "홍익대학교", "숙명여자대학교", "국민대학교", "숭실대학교", "세종대학교", "단국대학교(죽전/천안)", "지방 거점 국립대학교 (예: 부산대, 경북대 등)"],
+            "note": "안정적인 성적입니다. 지원하려는 학과의 경쟁률과 커리큘럼, 학생부 반영 방식을 꼼꼼히 확인하고, 학생부 종합 전형을 적극적으로 활용하는 전략도 좋습니다."
+        }
+    elif 3.5 < gpa_grade <= 4.5:
+        return {
+            "tier": "중위권 (수시 교과/종합)",
+            "universities": ["명지대학교", "상명대학교", "가천대학교", "인하대학교", "아주대학교", "경기대학교", "한성대학교", "삼육대학교", "일부 지방 국립/사립대학교"],
+            "note": "다양한 선택지가 있습니다. 학생부 종합 전형이나 적성고사, 논술 전형 등 다른 전형 요소를 함께 고려하고, 희망하는 학과의 경쟁률 및 입결을 확인하세요."
+        }
+    elif 4.5 < gpa_grade <= 9.0:
+        return {
+            "tier": "지원 가능 (수시 교과/종합)",
+            "universities": ["전국 각지의 전문대학교 및 일부 4년제 대학교", "폭넓은 전형 선택을 통해 진학 가능"],
+            "note": "성적 외에 면접, 비교과 활동, 수능 최저 등 다른 전형 요소를 활용하거나, 지역 균형 선발, 사회적 배려 대상자 전형 등 특별 전형을 알아보는 것도 방법입니다."
+        }
+    else:
+        return {
+            "tier": "정보 없음",
+            "universities": [],
+            "note": "올바른 내신 등급(1.0~9.0)을 입력해주세요."
+        }
 
-# --- 3. 사용자 입력 섹션 ---
+def get_suneung_university_recommendation(suneung_grade):
+    """
+    수능 등급(정시)에 따른 대학 추천 리스트를 반환합니다.
+    (매우 단순화된 예시이며, 실제 입시는 다양한 변수를 고려해야 합니다.)
+    """
+    if 1.0 <= suneung_grade <= 1.5:
+        return {
+            "tier": "최상위권 (정시)",
+            "universities": ["서울대학교", "연세대학교", "고려대학교", "의과대학", "치과대학", "한의과대학"],
+            "note": "모든 영역에서 최상위권 성적입니다. 원하는 학과의 정시 반영 비율, 탐구 선택 과목 등을 신중하게 고려하세요."
+        }
+    elif 1.5 < suneung_grade <= 2.5:
+        return {
+            "tier": "상위권 (정시)",
+            "universities": ["서강대학교", "성균관대학교", "한양대학교", "중앙대학교", "경희대학교", "이화여자대학교", "한국외국어대학교", "서울시립대학교", "KAIST, POSTECH (수시 위주지만 참고)"],
+            "note": "우수한 성적입니다. 희망 대학의 수능 영역별 반영 비율, 가산점 등을 확인하고 전략적인 지원이 필요합니다."
+        }
+    elif 2.5 < suneung_grade <= 3.5:
+        return {
+            "tier": "중상위권 (정시)",
+            "universities": ["건국대학교", "동국대학교", "홍익대학교", "숙명여자대학교", "국민대학교", "숭실대학교", "세종대학교", "인하대학교", "아주대학교", "지방 거점 국립대학교 (상위 학과)"],
+            "note": "안정적인 성적입니다. 군별 모집과 다군 활용 전략, 백분위/표준점수 유불리를 분석하여 지원하세요."
+        }
+    elif 3.5 < suneung_grade <= 4.5:
+        return {
+            "tier": "중위권 (정시)",
+            "universities": ["명지대학교", "상명대학교", "가천대학교", "경기대학교", "한성대학교", "삼육대학교", "수도권 주요 4년제 및 지방 주요 4년제 대학교"],
+            "note": "다양한 선택지가 있습니다. 원하는 학과와 대학의 최근 3개년 정시 입결, 추가 합격률 등을 참고하는 것이 좋습니다."
+        }
+    elif 4.5 < suneung_grade <= 9.0:
+        return {
+            "tier": "지원 가능 (정시)",
+            "universities": ["전국 각지의 전문대학교 및 일부 4년제 대학교", "폭넓은 선택을 통해 진학 가능"],
+            "note": "일부 대학은 수능 위주 전형 외에도 수시 이월 인원, 지역 인재 전형 등 다양한 정시 모집 방법이 있습니다."
+        }
+    else:
+        return {
+            "tier": "정보 없음",
+            "universities": [],
+            "note": "올바른 수능 등급(1.0~9.0)을 입력해주세요."
+        }
 
-# 3.1. 사진 업로드 입력
-st.header("📸 쓰레기 사진으로 검색하기")
-uploaded_file = st.file_uploader("쓰레기 사진(JPG, JPEG, PNG)을 업로드해주세요.", type=["jpg", "jpeg", "png"])
 
-if uploaded_file is not None:
-    # 이미지 표시
-    image = Image.open(uploaded_file)
-    st.image(image, caption="업로드된 사진", use_column_width=True)
-    st.info("⚠️ 이미지 분석 기능은 현재 개발 중입니다. (아래 텍스트 입력 기능을 사용해주세요!)")
-    
-    # 💡 이미지 인식 기능에 대한 추가 설명
-    # 이미지에서 쓰레기 종류를 자동으로 분류하려면,
-    # 머신러닝(딥러닝) 모델(예: TensorFlow, PyTorch)을 학습시키거나
-    # 외부 AI Vision API (Google Cloud Vision API, Azure Cognitive Services 등)를 연동해야 합니다.
-    # 이는 초급 단계에서는 복잡할 수 있으므로, 현재는 텍스트 입력 방식이 더 실용적입니다.
-    # 하지만 송현2777님의 꾸준한 학습과 탐구를 통해 충분히 도전하실 수 있는 멋진 목표가 될 것입니다!
+# Streamlit 앱 시작
+st.set_page_config(
+    page_title="대학 입시 추천기 (내신 & 정시)",
+    page_icon="🎓",
+    layout="centered"
+)
 
-# 3.2. 텍스트 입력
-st.header("📝 쓰레기 종류를 직접 입력하기")
-user_input_text = st.text_input("예: 페트병, 종이류, 플라스틱류, 캔류, 유리병류, 비닐류, 음식물쓰레기, 고철, 의류, 건전지", "")
+st.title("📚 대학 입시 추천 프로그램")
+st.markdown("---")
 
-if user_input_text:
-    # 사용자의 입력을 기반으로 재활용 정보 검색
-    info = get_recycling_info(user_input_text.strip()) # strip()으로 양쪽 공백 제거
-    st.subheader(f"🔍 '{user_input_text}' 재활용 방법:")
-    st.success(info)
-    
-    # 다음 검색을 위한 버튼 (선택 사항)
-    if st.button("다시 검색하기"):
-        st.experimental_rerun() # 앱을 새로고침하여 입력값을 초기화합니다.
+st.write(
+    """
+    **송현2777님, 안녕하세요!** 이 프로그램은 사용자의 **내신 평균 등급(수시)** 또는 
+    **수능 평균 등급(정시)**을 바탕으로 참고할 만한 대학 리스트를 제공합니다. 
+    **실제 대학 입시는 본인의 내신/수능 외에도 학생부 내용, 비교과 활동, 면접, 논술, 
+    수능 영역별 반영 비율, 가산점 등 다양한 요소를 종합적으로 평가하므로, 
+    이 결과는 참고용으로만 활용해 주세요!**
+    """
+)
+
+# 사용자에게 입시 유형 선택 받기
+admission_type = st.radio(
+    "어떤 기준으로 추천받고 싶으신가요?",
+    ("내신(수시) 기준", "수능(정시) 기준")
+)
+
+st.markdown("---")
+
+if admission_type == "내신(수시) 기준":
+    # 사용자 입력 받기 (내신)
+    gpa_input = st.number_input(
+        "📏 본인의 **내신 평균 등급**을 입력해 주세요 (예: 2.3):",
+        min_value=1.0,
+        max_value=9.0,
+        value=3.0, # 초기값 설정
+        step=0.1,
+        format="%.1f"
+    )
+    if st.button("✨ 내신 기반 추천 대학 확인하기"):
+        if gpa_input:
+            recommendation = get_naeshin_university_recommendation(gpa_input)
+
+            st.subheader(f"✅ 입력하신 내신 등급 **{gpa_input}등급**에 대한 추천")
+            st.markdown(f"**해당 등급대:** {recommendation['tier']}")
+
+            if recommendation['universities']:
+                st.write("---")
+                st.write("🎯 **추천 대학 리스트:**")
+                for univ in recommendation['universities']:
+                    st.write(f"- {univ}")
+                st.write("---")
+                st.info(f"💡 **참고:** {recommendation['note']}")
+            else:
+                st.warning(f"⚠️ {recommendation['note']}")
+        else:
+            st.error("⚠️ 내신 등급을 입력해주세요.")
+
+else: # admission_type == "수능(정시) 기준"
+    # 사용자 입력 받기 (수능)
+    suneung_input = st.number_input(
+        "📝 본인의 **수능 평균 등급**을 입력해 주세요 (예: 2.8):",
+        min_value=1.0,
+        max_value=9.0,
+        value=3.0, # 초기값 설정
+        step=0.1,
+        format="%.1f"
+    )
+    if st.button("✨ 수능 기반 추천 대학 확인하기"):
+        if suneung_input:
+            recommendation = get_suneung_university_recommendation(suneung_input)
+
+            st.subheader(f"✅ 입력하신 수능 등급 **{suneung_input}등급**에 대한 추천")
+            st.markdown(f"**해당 등급대:** {recommendation['tier']}")
+
+            if recommendation['universities']:
+                st.write("---")
+                st.write("🎯 **추천 대학 리스트:**")
+                for univ in recommendation['universities']:
+                    st.write(f"- {univ}")
+                st.write("---")
+                st.info(f"💡 **참고:** {recommendation['note']}")
+            else:
+                st.warning(f"⚠️ {recommendation['note']}")
+        else:
+            st.error("⚠️ 수능 등급을 입력해주세요.")
+
+st.markdown("---")
+st.write("본 프로그램은 교육 상담의 목적으로 제공되지 않으며, 정확한 입시 정보는 각 대학의 모집 요강을 반드시 확인해야 합니다.")
+st.write("냥이 드림"
