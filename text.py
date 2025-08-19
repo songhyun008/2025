@@ -1,4 +1,5 @@
 import streamlit as st
+import time # '두구두구' 멘트와 결과 사이에 약간의 시간차를 주기 위해
 
 def get_naeshin_university_recommendation(gpa_grade):
     """
@@ -6,20 +7,6 @@ def get_naeshin_university_recommendation(gpa_grade):
     간판학과 정보는 해당 대학에서 전통적으로 강하거나 인기 있는 학과를 예시로 포함합니다.
     수능 최저학력기준은 예시이며, 매년 달라질 수 있습니다.
     """
-    # 각 대학 로고 파일 경로 정의
-    # 실제 파일명과 경로에 맞게 수정해주세요!
-    # 예: images/서울대_로고.png
-    univ_logos = {
-        "서울대학교": "images/서울대_로고.png",
-        "연세대학교": "images/연세대_로고.png",
-        "고려대학교": "images/고려대_로고.png",
-        "성균관대학교": "images/성균관대_로고.png",
-        "조선대학교": "images/조선대_로고.png",
-        "전남대학교": "images/전남대_로고.png"
-        # 필요한 다른 대학 로고도 여기에 추가
-    }
-
-    # 등급대별 추천 정보 (수능 최저, 로고 경로 포함)
     if 1.0 <= gpa_grade <= 1.5:
         return {
             "tier": "최상위권 (수시 교과/종합)",
@@ -55,8 +42,7 @@ def get_naeshin_university_recommendation(gpa_grade):
                 "규칙적인 생활 패턴 (기상, 취침 시간 일정하게 유지)", "충분한 수면 시간 (7-8시간) 확보로 학습 효율 극대화",
                 "스트레스 해소를 위한 규칙적인 운동이나 취미 활동", "긍정적 자기 확신과 자신감 유지를 위한 마인드 컨트롤",
                 "균형 잡힌 식사와 건강 관리"
-            ],
-            "logos": [univ_logos.get(u, "") for u in ["서울대학교", "연세대학교", "고려대학교"] if u in univ_logos] # 로고 파일 경로 추가
+            ]
         }
     elif 1.5 < gpa_grade <= 2.5:
         return {
@@ -95,8 +81,7 @@ def get_naeshin_university_recommendation(gpa_grade):
                 "주간/월간 학습 계획 수립 및 실천 습관", "규칙적인 휴식 시간 확보로 학습 피로도 관리",
                 "학원/인강 의존도를 줄이고 자기 주도 학습 시간 늘리기", "균형 잡힌 식사와 가벼운 운동으로 건강 유지",
                 "긍정적인 학습 분위기 조성 및 불필요한 비교 피하기"
-            ],
-            "logos": [univ_logos.get(u, "") for u in ["성균관대학교"] if u in univ_logos]
+            ]
         }
     elif 2.5 < gpa_grade <= 3.5:
         return {
@@ -134,8 +119,7 @@ def get_naeshin_university_recommendation(gpa_grade):
                 "스마트폰 사용 시간 및 불필요한 외부 활동 줄이기", "학습 공간을 항상 깔끔하게 정리하여 집중력 향상",
                 "친구들과의 긍정적인 교류를 통해 학습 동기 유지", "규칙적인 학습 시간 확보를 위해 개인 시간 조절",
                 "잠자리에 들기 전 학습 계획을 세우는 습관"
-            ],
-            "logos": [univ_logos.get(u, "") for u in ["전남대학교"] if u in univ_logos]
+            ]
         }
     elif 3.5 < gpa_grade <= 4.5:
         return {
@@ -171,8 +155,7 @@ def get_naeshin_university_recommendation(gpa_grade):
                 "규칙적인 기상 및 취침 시간으로 생체 리듬 조절", "작은 학습 목표를 세우고 달성하며 성취감 느끼기",
                 "불필요한 시간 낭비 요소(TV, 게임 등) 통제", "긍정적인 마음가짐으로 학습 스트레스 관리",
                 "가족이나 친구에게 도움을 요청하고 소통하며 동기 부여"
-            ],
-            "logos": [] # 해당 등급대 대학 로고는 일반 목록에 없으면 빈 리스트
+            ]
         }
     elif 4.5 < gpa_grade <= 6.0: # 4.5~6.0등급 세분화 시작
         return {
@@ -210,8 +193,7 @@ def get_naeshin_university_recommendation(gpa_grade):
                 "체계적인 학습 계획을 세우고 꾸준히 실천", "규칙적인 기상 및 취침 시간 유지로 컨디션 관리",
                 "스트레스 관리 및 긍정적 사고 유지", "스마트폰 사용 시간 조절 등 학습 환경 조성",
                 "학습 동기 부여를 위해 롤모델 탐색 또는 관련 분야 뉴스 구독"
-            ],
-            "logos": [univ_logos.get(u, "") for u in ["조선대학교"] if u in univ_logos]
+            ]
         }
     elif 6.0 < gpa_grade <= 7.5: # 6.0~7.5등급 세분화 시작
         return {
@@ -243,8 +225,7 @@ def get_naeshin_university_recommendation(gpa_grade):
                 "작은 학습 목표라도 꾸준히 달성하며 성취감 느끼기", "규칙적인 생활 리듬을 유지하고 건강 관리 철저히",
                 "불필요한 비교는 피하고 자신만의 속도로 나아가기", "학습 공간을 정리하고 집중력을 높이는 환경 조성",
                 "긍정적인 마음을 유지하고 주변의 도움을 적극적으로 활용"
-            ],
-            "logos": []
+            ]
         }
     elif 7.5 < gpa_grade <= 9.0: # 7.5~9.0등급 세분화 시작
         return {
@@ -273,18 +254,18 @@ def get_naeshin_university_recommendation(gpa_grade):
                 "흥미를 느끼는 분야의 지식을 폭넓게 탐색하며 학습 동기 부여"
             ],
             "lifestyle_tips": [
-                "공부 시작을 미루지 않고 일단 시작하는 습관 기르기", "구체적인 단기 학습 목표를 세우고 달성하며 자신감 느끼기",
-                "스트레스 받지 않고 꾸준히 학습하는 것에 중점", "건강 관리와 충분한 휴식으로 컨디션 조절",
-                "긍정적인 태도로 임하며 자기 자신을 믿기"
-            ],
-            "logos": []
+                "규칙적인 생활과 체력 관리로 학습 효율 증대", "자신감 회복을 위한 긍정적 자기 암시 및 목표 설정",
+                "불필요한 유혹을 피하고 학습에 집중하는 습관 형성",
+                "주변 친구들이나 선생님, 학부모님과 소통하며 조언 구하기",
+                "다양한 직업 체험이나 진로 탐색 활동을 통해 동기 부여"
+            ]
         }
     else:
         return {
             "tier": "정보 없음",
             "universities": [], "flagship_departments": {}, "min_suneung_cutoff": {},
             "note": "올바른 내신 등급(1.0~9.0)을 입력해주세요.",
-            "qualities": [], "efforts": [], "study_methods": [], "lifestyle_tips": [], "logos": []
+            "qualities": [], "efforts": [], "study_methods": [], "lifestyle_tips": []
         }
 
 def get_suneung_university_recommendation(suneung_grade):
@@ -292,16 +273,6 @@ def get_suneung_university_recommendation(suneung_grade):
     수능 등급(정시)에 따른 대학 추천 리스트, 필요한 자질, 노력, 공부 방법 및 생활 습관을 반환합니다.
     정시에서는 수능 최저가 별도로 의미 없으므로 포함하지 않습니다.
     """
-    # 각 대학 로고 파일 경로 정의
-    univ_logos = {
-        "서울대학교": "images/서울대_로고.png",
-        "연세대학교": "images/연세대_로고.png",
-        "고려대학교": "images/고려대_로고.png",
-        "성균관대학교": "images/성균관대_로고.png",
-        "조선대학교": "images/조선대_로고.png",
-        "전남대학교": "images/전남대_로고.png"
-    }
-
     if 1.0 <= suneung_grade <= 1.5:
         return {
             "tier": "최상위권 (정시)",
@@ -329,10 +300,9 @@ def get_suneung_university_recommendation(suneung_grade):
             ],
             "lifestyle_tips": [
                 "수능 시험 시간표에 맞춘 규칙적인 생활 리듬 유지", "규칙적인 운동으로 체력 관리 및 스트레스 해소",
-                "수면의 질 관리 (깊은 수면 확보)", "멘탈 관리: 긍정적인 마인드 유지 및 시험 불안감 극복",
+                ""수면의 질 관리 (깊은 수면 확보)", "멘탈 관리: 긍정적인 마인드 유지 및 시험 불안감 극복",
                 "시험 직전 최상의 컨디션을 위한 식단 및 습관 조절"
-            ],
-            "logos": [univ_logos.get(u, "") for u in ["서울대학교", "연세대학교", "고려대학교"] if u in univ_logos]
+            ]
         }
     elif 1.5 < suneung_grade <= 2.5:
         return {
@@ -365,8 +335,7 @@ def get_suneung_university_recommendation(suneung_grade):
                 "자신만의 학습 루틴을 만들어 꾸준히 실천", "수면, 식사, 휴식 시간을 규칙적으로 관리",
                 "집중이 잘 되는 학습 환경 조성 (정리 정돈 및 방해 요소 제거)", "부정적인 생각보다는 긍정적인 자기 암시 활용",
                 "체력 관리를 위한 꾸준한 운동과 스트레칭"
-            ],
-            "logos": [univ_logos.get(u, "") for u in ["성균관대학교"] if u in univ_logos]
+            ]
         }
     elif 2.5 < suneung_grade <= 3.5:
         return {
@@ -397,8 +366,7 @@ def get_suneung_university_recommendation(suneung_grade):
                 "매일 일정한 학습 시간을 확보하고 학습 계획 준수", "학습 중간에 짧은 휴식을 취하여 집중력 유지",
                 "규칙적인 식사와 수면으로 체력 관리", "긍정적인 마음가짐을 유지하며 학습 스트레스 관리",
                 "스마트폰 등 학습 방해 요소 최소화"
-            ],
-            "logos": []
+            ]
         }
     elif 3.5 < suneung_grade <= 4.5:
         return {
@@ -428,8 +396,7 @@ def get_suneung_university_recommendation(suneung_grade):
                 "자신에게 맞는 학습 시간을 파악하고 그 시간에 집중", "충분한 휴식을 통해 학습 효율 유지",
                 "긍정적인 마인드를 가지고 꾸준히 노력하는 자세", "수능까지의 장기 계획을 세우고 작은 목표부터 달성",
                 "자신에게 적합한 학습 파트너를 찾아 함께 공부하는 것도 도움"
-            ],
-            "logos": [univ_logos.get(u, "") for u in ["조선대학교", "전남대학교"] if u in univ_logos]
+            ]
         }
     elif 4.5 < suneung_grade <= 9.0:
         return {
@@ -460,15 +427,14 @@ def get_suneung_university_recommendation(suneung_grade):
                 "공부 시작을 미루지 않고 일단 시작하는 습관 기르기", "구체적인 단기 학습 목표를 세우고 달성하며 자신감 느끼기",
                 "스트레스 받지 않고 꾸준히 학습하는 것에 중점", "건강 관리와 충분한 휴식으로 컨디션 조절",
                 "긍정적인 태도로 임하며 자기 자신을 믿기"
-            ],
-            "logos": []
+            ]
         }
     else:
         return {
             "tier": "정보 없음",
             "universities": [], "flagship_departments": {}, "min_suneung_cutoff": {},
             "note": "올바른 수능 등급(1.0~9.0)을 입력해주세요.",
-            "qualities": [], "efforts": [], "study_methods": [], "lifestyle_tips": [], "logos": []
+            "qualities": [], "efforts": [], "study_methods": [], "lifestyle_tips": []
         }
 
 
@@ -508,21 +474,6 @@ st.write(
     """
 )
 
-# --- 대학 로고 표시 ---
-st.subheader("💡 주요 대학 로고")
-# 이미지 파일 경로와 파일명을 실제 사용하시는 것과 일치시켜 주세요!
-# 예: 'images/' 폴더 안에 로고 파일들이 있다고 가정합니다.
-col1, col2, col3 = st.columns(3)
-with col1:
-    st.image("images/서울대_로고.png", caption="서울대학교", width=100) # 이미지 파일명 수정 필요
-    st.image("images/성균관대_로고.png", caption="성균관대학교", width=100) # 이미지 파일명 수정 필요
-with col2:
-    st.image("images/고려대_로고.png", caption="고려대학교", width=100) # 이미지 파일명 수정 필요
-    st.image("images/조선대_로고.png", caption="조선대학교", width=100) # 이미지 파일명 수정 필요
-with col3:
-    st.image("images/연세대_로고.png", caption="연세대학교", width=100) # 이미지 파일명 수정 필요
-    st.image("images/전남대_로고.png", caption="전남대학교", width=100) # 이미지 파일명 수정 필요
-
 st.markdown("---")
 
 # 사용자에게 입시 유형 선택 받기
@@ -547,6 +498,11 @@ if admission_type == "내신(수시) 기준":
         format="%.1f"
     )
     if st.button("✨ 내신 기반 추천 대학 확인하기"):
+        # 두구두구 멘트 추가
+        st.markdown("## 🥁 두구두구...!")
+        st.balloons() # 폭죽 (풍선) 효과
+        time.sleep(1) # 잠시 기다려 시각적 효과를 강조
+
         if gpa_input:
             recommendation = get_naeshin_university_recommendation(gpa_input)
 
@@ -612,6 +568,11 @@ else: # admission_type == "수능(정시) 기준"
         format="%.1f"
     )
     if st.button("✨ 수능 기반 추천 대학 확인하기"):
+        # 두구두구 멘트 추가
+        st.markdown("## 🥁 두구두구...!")
+        st.balloons() # 폭죽 (풍선) 효과
+        time.sleep(1) # 잠시 기다려 시각적 효과를 강조
+
         if suneung_input:
             recommendation = get_suneung_university_recommendation(suneung_input)
 
