@@ -445,14 +445,17 @@ st.set_page_config(
     layout="centered"
 )
 
-# --- 파스텔 연두색 배경 설정 ---
+# --- 배경 이미지 설정 ---
 st.markdown(
     """
     <style>
     .stApp {
-        background-color: #e0ffe0; /* 파스텔 연두색 */
-        background-attachment: fixed;
-        background-size: cover;
+        background-image: url('https://user-images.githubusercontent.com/97839352/210214800-4b245e3d-5197-4226-80f0-c51639d67566.jpg'); /* 여기에 송현2777님의 이미지 URL을 넣어주세요! */
+        background-size: cover; /* 이미지가 화면 전체를 덮도록 */
+        background-repeat: no-repeat; /* 이미지 반복 안 함 */
+        background-position: center; /* 이미지 중앙 정렬 */
+        background-attachment: fixed; /* 스크롤해도 배경 이미지 고정 */
+        background-color: #e0ffe0; /* 이미지가 로드되지 않을 때의 대체 색상 (파스텔 연두색) */
     }
     </style>
     """,
