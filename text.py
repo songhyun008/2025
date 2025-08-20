@@ -450,7 +450,7 @@ st.markdown(
     """
     <style>
     .stApp {
-        background-image: url('https://user-images.githubusercontent.com/97839352/210214800-4b245e3d-5197-4226-80f0-c51639d67566.jpg'); /* 여기에 송현2777님의 이미지 URL을 넣어주세요! */
+        background-image: url('https://png.pngtree.com/back_origin_pic/04/26/05/8adc107d86f046913a82236889608d72.jpg'); /* 여기에 송현2777님의 새 이미지 URL을 넣어드렸어요! */
         background-size: cover; /* 이미지가 화면 전체를 덮도록 */
         background-repeat: no-repeat; /* 이미지 반복 안 함 */
         background-position: center; /* 이미지 중앙 정렬 */
